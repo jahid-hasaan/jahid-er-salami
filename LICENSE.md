@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salami Diben Koto?</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a4a38; 
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #ffd700; 
+            margin-bottom: 5px;
+            font-size: 2.5rem;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            color: #e0e0e0;
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            margin: 0 auto;
+        }
+
+        .pointer {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; 
+            height: 0; 
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 30px solid #ffd700;
+            z-index: 10;
+            filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.5));
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 6px solid #ffd700;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); 
+        }
+
+        .spin-btn {
+            margin-top: 40px;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background-color: #ffd700;
+            color: #1a4a38;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .spin-btn:hover {
+            background-color: #ffea75;
+            transform: scale(1.05);
+        }
+
+        .spin-btn:active {
+            transform: scale(0.95);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 20;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            color: #333;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            /* শর্টসের জন্য সাইজ চিকন করা হলো */
+            width: 280px; 
+            box-shadow: 0 0 20px #ffd700;
+            animation: popIn 0.5s ease;
+        }
+
+        .modal-content h2 {
+            color: #1a4a38;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .modal-content p {
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        /* YouTube Iframe styling - শর্টসের মতো লম্বা করা হলো */
+        iframe {
+            width: 100%;
+            height: 480px; 
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            background-color: #000;
+        }
+
+        .close-btn {
+            background: #1a4a38;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Salami Diben Koto?</h1>
+    <p>Spin the wheel to claim your Eid Salami! 💸</p>
+
+    <div class="wheel-container">
+        <div class="pointer"></div>
+        <svg viewBox="-100 -100 200 200" class="wheel" id="wheel">
+            <g id="slices">
+                <path d="M0,0 L0,-100 A100,100 0 0,1 86.6,-50 Z" fill="#FFC300"/> 
+                <path d="M0,0 L86.6,-50 A100,100 0 0,1 86.6,50 Z" fill="#FF5733"/>
+                <path d="M0,0 L86.6,50 A100,100 0 0,1 0,100 Z" fill="#33FF57"/>
+                <path d="M0,0 L0,100 A100,100 0 0,1 -86.6,50 Z" fill="#3357FF"/>
+                <path d="M0,0 L-86.6,50 A100,100 0 0,1 -86.6,-50 Z" fill="#FF33A8"/>
+                <path d="M0,0 L-86.6,-50 A100,100 0 0,1 0,-100 Z" fill="#33FFF6"/>
+            </g>
+            <g font-size="14" font-weight="bold" fill="white" text-anchor="middle" font-family="sans-serif">
+                <text transform="rotate(30) translate(0, -70)" fill="#1a4a38">Dua</text>
+                <text transform="rotate(90) translate(0, -70)">2 tk</text>
+                <text transform="rotate(150) translate(0, -70)" fill="#1a4a38">5 tk</text>
+                <text transform="rotate(210) translate(0, -70)">10 tk</text>
+                <text transform="rotate(270) translate(0, -70)">50 tk</text>
+                <text transform="rotate(330) translate(0, -70)" fill="#1a4a38">100 tk</text>
+            </g>
+        </svg>
+    </div>
+
+    <button class="spin-btn" onclick="spinWheel()" id="spinBtn">SPIN NOW!</button>
+
+    <div class="modal" id="resultModal">
+        <div class="modal-content">
+            <h2>Alhamdulillah! 🤲</h2>
+            <p>You have won: <strong>Unlimited Dua!</strong></p>
+            
+            <iframe id="salamiVideo" src="" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+
+            <button class="close-btn" onclick="closeModal()">Accept Dua</button>
+        </div>
+    </div>
+
+    <script>
+        let currentRotation = 0;
+        let isSpinning = false;
+
+        function spinWheel() {
+            if (isSpinning) return;
+            isSpinning = true;
+
+            const spins = Math.floor(Math.random() * 4) + 5; 
+            const riggedOffset = Math.floor(Math.random() * 40) + 10; 
+            currentRotation += (spins * 360) + (360 - riggedOffset) - (currentRotation % 360);
+
+            const wheel = document.getElementById('wheel');
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                document.getElementById('resultModal').style.display = 'flex';
+                // লিংকে এক্সট্রা প্যারামিটার অ্যাড করা হলো
+                document.getElementById('salamiVideo').src = "https://www.youtube.com/embed/KHpnUCiY7kk?autoplay=1&mute=0&controls=1&rel=0"; 
+                isSpinning = false;
+            }, 4200);
+        }
+
+        function closeModal() {
+            document.getElementById('resultModal').style.display = 'none';
+            document.getElementById('salamiVideo').src = "";
+        }
+    </script>
+</body>
+</html>
